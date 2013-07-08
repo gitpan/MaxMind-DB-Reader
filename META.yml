@@ -1,0 +1,56 @@
+---
+abstract: 'Read MaxMind DB files'
+author:
+  - 'Dave Rolsky <autarch@urth.org>'
+  - 'Olaf Alders <olaf@wundercounter.com>'
+build_requires:
+  Exporter: 0
+  File::Temp: 0
+  Net::Works::Network: 0
+  Scalar::Util: 0
+  Test::Bits: 0
+  Test::DescribeMe: 0
+  Test::Fatal: 0
+  Test::MaxMind::DB::Common::Data: 0
+  Test::More: 0
+  lib: 0
+configure_requires:
+  ExtUtils::MakeMaker: 6.30
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.300035, CPAN::Meta::Converter version 2.120921'
+license: artistic_2
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: MaxMind-DB-Reader
+requires:
+  Carp: 0
+  Data::IEEE754: 0
+  Data::Validate::Domain: 0
+  Data::Validate::IP: 0
+  Encode: 0
+  IO::File: 0
+  List::AllUtils: 0
+  Math::Int128: 0
+  MaxMind::DB::Common: 0
+  MaxMind::DB::Metadata: 0
+  MaxMind::DB::Role::Debugs: 0
+  Moose: 0
+  Moose::Role: 0
+  MooseX::Getopt::Dashes: 0
+  MooseX::StrictConstructor: 0
+  Net::Works::Address: 0
+  NetAddr::IP::Util: 0
+  Socket: 0
+  Sub::Exporter: 0
+  Try::Tiny: 0
+  autodie: 0
+  bytes: 0
+  constant: 0
+  namespace::autoclean: 0
+  strict: 0
+  warnings: 0
+resources:
+  bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=MaxMind-DB-Reader
+  repository: git://github.com/maxmind/MaxMind-DB-perl.git
+version: 0.3.0
