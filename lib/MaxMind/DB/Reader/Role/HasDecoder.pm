@@ -1,6 +1,9 @@
 package MaxMind::DB::Reader::Role::HasDecoder;
 {
-  $MaxMind::DB::Reader::Role::HasDecoder::VERSION = '0.3.0'; # TRIAL
+  $MaxMind::DB::Reader::Role::HasDecoder::VERSION = '0.040000';
+}
+BEGIN {
+  $MaxMind::DB::Reader::Role::HasDecoder::AUTHORITY = 'cpan:TJMATHER';
 }
 
 use strict;
@@ -9,8 +12,9 @@ use namespace::autoclean;
 
 use MaxMind::DB::Common qw( DATA_SECTION_SEPARATOR_SIZE );
 use MaxMind::DB::Reader::Decoder;
+use MaxMind::DB::Types qw( Decoder );
 
-use Moose::Role;
+use Moo::Role;
 
 with 'MaxMind::DB::Role::Debugs';
 
@@ -19,7 +23,7 @@ with 'MaxMind::DB::Role::Debugs';
 
 has _decoder => (
     is       => 'ro',
-    isa      => 'MaxMind::DB::Reader::Decoder',
+    isa      => Decoder,
     init_arg => undef,
     lazy     => 1,
     builder  => '_build_decoder',

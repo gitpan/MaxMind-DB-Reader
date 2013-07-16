@@ -1,6 +1,9 @@
 package MaxMind::DB::Reader::Role::Sysreader;
 {
-  $MaxMind::DB::Reader::Role::Sysreader::VERSION = '0.3.0'; # TRIAL
+  $MaxMind::DB::Reader::Role::Sysreader::VERSION = '0.040000';
+}
+BEGIN {
+  $MaxMind::DB::Reader::Role::Sysreader::AUTHORITY = 'cpan:TJMATHER';
 }
 
 use strict;
@@ -8,11 +11,14 @@ use warnings;
 use namespace::autoclean;
 use autodie;
 
-use Moose::Role;
+use Carp qw( confess );
+use MaxMind::DB::Types qw( FileHandle );
+
+use Moo::Role;
 
 has data_source => (
     is      => 'ro',
-    isa     => 'FileHandle',
+    isa     => FileHandle,
     lazy    => 1,
     builder => '_build_data_source',
 );

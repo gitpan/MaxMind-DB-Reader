@@ -1,6 +1,9 @@
 package MaxMind::DB::Reader::Role::NodeReader;
 {
-  $MaxMind::DB::Reader::Role::NodeReader::VERSION = '0.3.0'; # TRIAL
+  $MaxMind::DB::Reader::Role::NodeReader::VERSION = '0.040000';
+}
+BEGIN {
+  $MaxMind::DB::Reader::Role::NodeReader::AUTHORITY = 'cpan:TJMATHER';
 }
 
 use strict;
@@ -8,13 +11,15 @@ use warnings;
 use namespace::autoclean;
 use autodie;
 
-use Moose::Role;
+use MaxMind::DB::Types qw( Int );
+
+use Moo::Role;
 
 with 'MaxMind::DB::Reader::Role::HasMetadata';
 
 has _node_byte_size => (
     is       => 'ro',
-    isa      => 'Int',
+    isa      => Int,
     init_arg => undef,
     lazy     => 1,
     builder  => '_build_node_byte_size',
@@ -22,7 +27,7 @@ has _node_byte_size => (
 
 has _search_tree_size => (
     is       => 'ro',
-    isa      => 'Int',
+    isa      => Int,
     init_arg => undef,
     lazy     => 1,
     builder  => '_build_search_tree_size',

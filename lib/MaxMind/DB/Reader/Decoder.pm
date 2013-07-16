@@ -1,6 +1,9 @@
 package MaxMind::DB::Reader::Decoder;
 {
-  $MaxMind::DB::Reader::Decoder::VERSION = '0.3.0'; # TRIAL
+  $MaxMind::DB::Reader::Decoder::VERSION = '0.040000';
+}
+BEGIN {
+  $MaxMind::DB::Reader::Decoder::AUTHORITY = 'cpan:TJMATHER';
 }
 
 use strict;
@@ -11,13 +14,14 @@ use autodie;
 use Carp qw( confess );
 use Data::IEEE754 qw( unpack_double_be unpack_float_be );
 use Encode ();
+use MaxMind::DB::Common 0.031000 qw( %TypeNumToName );
 use MaxMind::DB::Reader::Data::Container;
 use MaxMind::DB::Reader::Data::EndMarker;
 use Math::Int128 qw( uint128 );
-use NetAddr::IP::Util qw( bin2bcd );
+use MaxMind::DB::Types qw( Int );
 
-use Moose;
-use MooseX::StrictConstructor;
+use Moo;
+use MooX::StrictConstructor;
 
 with 'MaxMind::DB::Role::Debugs', 'MaxMind::DB::Reader::Role::Sysreader';
 
@@ -30,28 +34,9 @@ use constant POINTER_TEST_HACK => $ENV{MAXMIND_DB_POINTER_TEST_HACK};
 binmode STDERR, ':utf8'
     if DEBUG;
 
-my %Types = (
-    0  => 'extended',
-    1  => 'pointer',
-    2  => 'utf8_string',
-    3  => 'double',
-    4  => 'bytes',
-    5  => 'uint16',
-    6  => 'uint32',
-    7  => 'map',
-    8  => 'int32',
-    9  => 'uint64',
-    10 => 'uint128',
-    11 => 'array',
-    12 => 'container',
-    13 => 'end_marker',
-    14 => 'boolean',
-    15 => 'float',
-);
-
 has _pointer_base => (
     is       => 'ro',
-    isa      => 'Int',
+    isa      => Int,
     init_arg => 'pointer_base',
     default  => 0,
 );
@@ -78,7 +63,7 @@ sub decode {
     $ctrl_byte = unpack( C => $ctrl_byte );
 
     # The type is encoded in the first 3 bits of the byte.
-    my $type = $Types{ $ctrl_byte >> 5 };
+    my $type = $TypeNumToName{ $ctrl_byte >> 5 };
 
     $self->_debug_string( 'Type', $type )
         if DEBUG;
@@ -109,7 +94,7 @@ sub decode {
             "Something went horribly wrong in the decoder. An extended type resolved to a type number < 8 ($type_num)"
             unless $type_num >= 8;
 
-        $type = $Types{$type_num};
+        $type = $TypeNumToName{$type_num};
         $offset++;
     }
 
@@ -307,10 +292,16 @@ sub _decode_uint {
         return unpack( 'N' => $self->_zero_pad_left( $buffer, $bytes ) );
     }
     else {
-        return uint128(0)
-            if $size == 0;
+        my $int = uint128(0);
 
-        return uint128( bin2bcd( $self->_zero_pad_left( $buffer, 16 ) ) );
+        return $int if $size == 0;
+
+        my @unpacked = unpack( 'NNNN', $self->_zero_pad_left( $buffer, 16 ) );
+        for my $piece (@unpacked) {
+            $int = ( $int << 32 ) | $piece;
+        }
+
+        return $int;
     }
 }
 

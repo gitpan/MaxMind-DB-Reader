@@ -1,6 +1,9 @@
 package MaxMind::DB::Reader::Role::HasMetadata;
 {
-  $MaxMind::DB::Reader::Role::HasMetadata::VERSION = '0.3.0'; # TRIAL
+  $MaxMind::DB::Reader::Role::HasMetadata::VERSION = '0.040000';
+}
+BEGIN {
+  $MaxMind::DB::Reader::Role::HasMetadata::AUTHORITY = 'cpan:TJMATHER';
 }
 
 use strict;
@@ -12,14 +15,15 @@ require bytes;
 use List::AllUtils qw( min );
 use MaxMind::DB::Reader::Decoder;
 use MaxMind::DB::Metadata;
+use MaxMind::DB::Types qw( Int Metadata );
 
-use Moose::Role;
+use Moo::Role;
 
 with 'MaxMind::DB::Reader::Role::Sysreader';
 
 has metadata => (
     is       => 'ro',
-    isa      => 'MaxMind::DB::Metadata',
+    isa      => Metadata,
     init_arg => undef,
     lazy     => 1,
     builder  => '_build_metadata',
@@ -28,7 +32,7 @@ has metadata => (
 
 has _data_source_size => (
     is       => 'ro',
-    isa      => 'Int',
+    isa      => Int,
     init_arg => undef,
     lazy     => 1,
     builder  => '_build_data_source_size',
@@ -37,7 +41,7 @@ has _data_source_size => (
 has _data_section_end => (
     is       => 'rw',
     writer   => '_set_data_section_end',
-    isa      => 'Int',
+    isa      => Int,
     init_arg => undef,
 );
 
