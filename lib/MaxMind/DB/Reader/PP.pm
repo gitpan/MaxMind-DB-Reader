@@ -1,6 +1,6 @@
 package MaxMind::DB::Reader::PP;
 {
-  $MaxMind::DB::Reader::PP::VERSION = '0.040002';
+  $MaxMind::DB::Reader::PP::VERSION = '0.040003';
 }
 BEGIN {
   $MaxMind::DB::Reader::PP::AUTHORITY = 'cpan:TJMATHER';
@@ -61,7 +61,7 @@ MaxMind::DB::Reader::PP - Pure Perl implementation of the MaxMind DB reader code
 
 =head1 VERSION
 
-version 0.040002
+version 0.040003
 
 =head1 AUTHORS
 

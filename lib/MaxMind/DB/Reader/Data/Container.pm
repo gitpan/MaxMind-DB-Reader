@@ -1,6 +1,6 @@
 package MaxMind::DB::Reader::Data::Container;
 {
-  $MaxMind::DB::Reader::Data::Container::VERSION = '0.040002';
+  $MaxMind::DB::Reader::Data::Container::VERSION = '0.040003';
 }
 BEGIN {
   $MaxMind::DB::Reader::Data::Container::AUTHORITY = 'cpan:TJMATHER';

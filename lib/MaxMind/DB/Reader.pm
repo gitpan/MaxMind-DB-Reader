@@ -1,6 +1,6 @@
 package MaxMind::DB::Reader;
 {
-  $MaxMind::DB::Reader::VERSION = '0.040002';
+  $MaxMind::DB::Reader::VERSION = '0.040003';
 }
 BEGIN {
   $MaxMind::DB::Reader::AUTHORITY = 'cpan:TJMATHER';
@@ -42,7 +42,7 @@ MaxMind::DB::Reader - Read MaxMind DB files
 
 =head1 VERSION
 
-version 0.040002
+version 0.040003
 
 =head1 DESCRIPTION
 
