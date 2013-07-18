@@ -52,6 +52,7 @@
             "bytes" : "0",
             "constant" : "0",
             "namespace::autoclean" : "0",
+            "perl" : "5.010000",
             "strict" : "0",
             "warnings" : "0"
          }
@@ -82,7 +83,7 @@
          "web" : "https://github.com/maxmind/MaxMind-DB-Reader-perl"
       }
    },
-   "version" : "0.040000",
+   "version" : "0.040002",
    "x_authority" : "cpan:TJMATHER"
 }
 

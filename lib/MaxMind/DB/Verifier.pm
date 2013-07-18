@@ -1,6 +1,6 @@
 package MaxMind::DB::Verifier;
 {
-  $MaxMind::DB::Verifier::VERSION = '0.040000';
+  $MaxMind::DB::Verifier::VERSION = '0.040002';
 }
 BEGIN {
   $MaxMind::DB::Verifier::AUTHORITY = 'cpan:TJMATHER';

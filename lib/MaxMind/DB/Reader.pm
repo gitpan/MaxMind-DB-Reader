@@ -1,6 +1,6 @@
 package MaxMind::DB::Reader;
 {
-  $MaxMind::DB::Reader::VERSION = '0.040000';
+  $MaxMind::DB::Reader::VERSION = '0.040002';
 }
 BEGIN {
   $MaxMind::DB::Reader::AUTHORITY = 'cpan:TJMATHER';
@@ -8,6 +8,8 @@ BEGIN {
 
 use strict;
 use warnings;
+
+use 5.010000;
 
 use Module::Implementation;
 
@@ -40,9 +42,11 @@ MaxMind::DB::Reader - Read MaxMind DB files
 
 =head1 VERSION
 
-version 0.040000
+version 0.040002
 
 =head1 DESCRIPTION
+
+This module requires Perl 5.10+.
 
 This first release is being done for the sake of the L<GeoIP2> package. Real
 documentation for this distro is forthcoming.

@@ -1,6 +1,6 @@
 package MaxMind::DB::Reader::PP;
 {
-  $MaxMind::DB::Reader::PP::VERSION = '0.040000';
+  $MaxMind::DB::Reader::PP::VERSION = '0.040002';
 }
 BEGIN {
   $MaxMind::DB::Reader::PP::AUTHORITY = 'cpan:TJMATHER';
@@ -49,7 +49,7 @@ __PACKAGE__->meta()->make_immutable();
 
 1;
 
-# ABSTRACT: Read MaxMind DB files
+# ABSTRACT: Pure Perl implementation of the MaxMind DB reader code
 
 __END__
 
@@ -57,11 +57,11 @@ __END__
 
 =head1 NAME
 
-MaxMind::DB::Reader::PP - Read MaxMind DB files
+MaxMind::DB::Reader::PP - Pure Perl implementation of the MaxMind DB reader code
 
 =head1 VERSION
 
-version 0.040000
+version 0.040002
 
 =head1 AUTHORS
 

@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-
+use 5.010000;
 
 use ExtUtils::MakeMaker 6.30;
 
@@ -63,7 +63,7 @@ my %WriteMakefileArgs = (
     "Test::More" => 0,
     "lib" => 0
   },
-  "VERSION" => "0.040000",
+  "VERSION" => "0.040002",
   "test" => {
     "TESTS" => "t/*.t t/MaxMind/DB/*.t t/MaxMind/DB/Reader/*.t t/MaxMind/DB/Reader/Decoder-types/*.t"
   }

@@ -1,6 +1,6 @@
 package MaxMind::DB::Reader::Role::NodeReader;
 {
-  $MaxMind::DB::Reader::Role::NodeReader::VERSION = '0.040000';
+  $MaxMind::DB::Reader::Role::NodeReader::VERSION = '0.040002';
 }
 BEGIN {
   $MaxMind::DB::Reader::Role::NodeReader::AUTHORITY = 'cpan:TJMATHER';
