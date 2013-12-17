@@ -1,6 +1,6 @@
 package MaxMind::DB::Reader;
 {
-  $MaxMind::DB::Reader::VERSION = '0.040003';
+  $MaxMind::DB::Reader::VERSION = '0.050000';
 }
 BEGIN {
   $MaxMind::DB::Reader::AUTHORITY = 'cpan:TJMATHER';
@@ -12,6 +12,8 @@ use warnings;
 use 5.010000;
 
 use Module::Implementation;
+use Moo 1.003000 ();
+use Role::Tiny 1.003002 ();
 
 my $Implementation;
 
@@ -42,7 +44,7 @@ MaxMind::DB::Reader - Read MaxMind DB files
 
 =head1 VERSION
 
-version 0.040003
+version 0.050000
 
 =head1 DESCRIPTION
 
@@ -57,11 +59,11 @@ documentation for this distro is forthcoming.
 
 =item *
 
-Dave Rolsky <autarch@urth.org>
+Dave Rolsky <drolsky@maxmind.com>
 
 =item *
 
-Olaf Alders <olaf@wundercounter.com>
+Olaf Alders <oalders@maxmind.com>
 
 =back
 

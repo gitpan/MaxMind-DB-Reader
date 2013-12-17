@@ -1,4 +1,9 @@
-# MaxMind DB Format
+---
+layout: default
+title: MaxMind DB File Format Specification
+version: v2.0
+---
+# MaxMind DB File Format Specification
 
 ## Version
 
@@ -35,11 +40,18 @@ allow for arbitrary binary data in the data section, some other piece of data
 could contain these values. This is why you need to find the last occurrence
 of this sequence.
 
+The maximum allowable size for the metadata section, including the marker that
+starts the metadata, is 128kb.
+
 The metadata is stored as a map data structure. This structure is described
 later in the spec. Changing a key's data type or removing a key would
 consistute a major version change for this spec.
 
-Adding a key constitutes a minor version change.
+Except where otherwise specified, each key listed is required for the database
+to be considered valid.
+
+Adding a key constitutes a minor version change. Removing a key or changing
+its type constitutes a major version change.
 
 The list of known keys for the current version of the format is as follows:
 
@@ -88,8 +100,8 @@ database's binary format.
 
 ### build\_epoch
 
-This is an unsigned 64-bit integer that contains database build timestamp as a
-Unix epoch value.
+This is an unsigned 64-bit integer that contains the database build timestamp
+as a Unix epoch value.
 
 ### description
 
@@ -101,7 +113,8 @@ The codes may include additional information such as script or country
 identifiers, like "zh-TW" or "mn-Cyrl-MN". The additional identifiers will be
 separated by a dash character ("-").
 
-The only language code we guarantee to include is "en" (English).
+This is key is optional. However, creators of databases are strongly
+encouraged to include a description in at least one language.
 
 ### Calculating the Search Tree Section Size
 
@@ -276,7 +289,8 @@ beginning of the file.
 
 ### UTF-8 string - 2
 
-A variable length byte sequence that contains valid utf8.
+A variable length byte sequence that contains valid utf8. If the length is
+zero then this is an empty string.
 
 ### double - 3
 
@@ -285,7 +299,8 @@ length of a double is always 8 bytes.
 
 ### bytes - 4
 
-A variable length byte sequence containing any sort of binary data.
+A variable length byte sequence containing any sort of binary data. If the
+length is zero then this a zero-length byte sequence.
 
 This is not currently used but may be used in the future to embed non-text
 data (images, etc.).
@@ -301,7 +316,9 @@ A 128-bit integer can use up to 16 bytes, but may use fewer. Similarly, a
 32-bit integer may use from 0-4 bytes. The number of bytes used is determined
 by the length specifier in the control byte. See below for details.
 
-When storing a signed integer, the left-most bit is the sign. A 1 is negative,
+A length of zero always indicates the number 0.
+
+When storing a signed integer, the left-most bit is the sign. A 1 is negative
 and a 0 is positive.
 
 The type numbers for our integer types are:
@@ -321,7 +338,7 @@ The signed 32-bit integers are stored using the 2's complement representation.
 
 A map data type contains a set of key/value pairs. Unlike other data types,
 the length information for maps indicates how many key/value pairs it
-contains, not its length in bytes.
+contains, not its length in bytes. This size can be zero.
 
 See below for the algorithm used to determine the number of pairs in the
 hash. This algorithm is also used to determine the length of a field's
@@ -330,7 +347,8 @@ payload.
 ### array - 11
 
 An array type contains a set of ordered values. The length information for
-arrays indicates how many values it contains, not its length in bytes.
+arrays indicates how many values it contains, not its length in bytes. This
+size can be zero.
 
 This type uses the same algorithm as maps for determining the length of a
 field's payload.

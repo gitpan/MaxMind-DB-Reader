@@ -1,6 +1,6 @@
 package MaxMind::DB::Reader::Role::HasMetadata;
 {
-  $MaxMind::DB::Reader::Role::HasMetadata::VERSION = '0.040003';
+  $MaxMind::DB::Reader::Role::HasMetadata::VERSION = '0.050000';
 }
 BEGIN {
   $MaxMind::DB::Reader::Role::HasMetadata::AUTHORITY = 'cpan:TJMATHER';

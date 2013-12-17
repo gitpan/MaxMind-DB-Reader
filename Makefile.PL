@@ -10,16 +10,17 @@ use ExtUtils::MakeMaker 6.30;
 
 my %WriteMakefileArgs = (
   "ABSTRACT" => "Read MaxMind DB files",
-  "AUTHOR" => "Dave Rolsky <autarch\@urth.org>, Olaf Alders <olaf\@wundercounter.com>",
+  "AUTHOR" => "Dave Rolsky <drolsky\@maxmind.com>, Olaf Alders <oalders\@maxmind.com>",
   "BUILD_REQUIRES" => {},
   "CONFIGURE_REQUIRES" => {
     "ExtUtils::MakeMaker" => "6.30"
   },
   "DISTNAME" => "MaxMind-DB-Reader",
   "EXE_FILES" => [
-    "bin/dump-metadata",
-    "bin/lookup-ip-address",
-    "bin/verify-database"
+    "bin/mmdb-dump-search-tree",
+    "bin/mmdb-dump-metadata",
+    "bin/mmdb-dump-database",
+    "bin/mmdb-verify-database"
   ],
   "LICENSE" => "artistic_2",
   "NAME" => "MaxMind::DB::Reader",
@@ -32,6 +33,8 @@ my %WriteMakefileArgs = (
     "Encode" => 0,
     "Getopt::Long" => 0,
     "IO::File" => 0,
+    "IO::Handle" => 0,
+    "JSON::PP" => 0,
     "List::AllUtils" => 0,
     "Math::Int128" => 0,
     "MaxMind::DB::Common" => "0.031000",
@@ -39,10 +42,12 @@ my %WriteMakefileArgs = (
     "MaxMind::DB::Role::Debugs" => 0,
     "MaxMind::DB::Types" => 0,
     "Module::Implementation" => 0,
-    "Moo" => 0,
+    "Moo" => "1.003000",
     "Moo::Role" => 0,
     "MooX::StrictConstructor" => 0,
     "Net::Works::Address" => "0.12",
+    "Net::Works::Network" => 0,
+    "Role::Tiny" => "1.003002",
     "Try::Tiny" => 0,
     "autodie" => 0,
     "bytes" => 0,
@@ -53,17 +58,16 @@ my %WriteMakefileArgs = (
   },
   "TEST_REQUIRES" => {
     "Exporter" => 0,
-    "File::Temp" => 0,
-    "Net::Works::Network" => 0,
     "Scalar::Util" => 0,
     "Test::Bits" => 0,
     "Test::Fatal" => 0,
     "Test::MaxMind::DB::Common::Data" => 0,
     "Test::MaxMind::DB::Common::Util" => 0,
     "Test::More" => 0,
-    "lib" => 0
+    "lib" => 0,
+    "utf8" => 0
   },
-  "VERSION" => "0.040003",
+  "VERSION" => "0.050000",
   "test" => {
     "TESTS" => "t/*.t t/MaxMind/DB/*.t t/MaxMind/DB/Reader/*.t t/MaxMind/DB/Reader/Decoder-types/*.t"
   }

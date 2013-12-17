@@ -1,6 +1,6 @@
 package MaxMind::DB::Reader::Role::Reader;
 {
-  $MaxMind::DB::Reader::Role::Reader::VERSION = '0.040003';
+  $MaxMind::DB::Reader::Role::Reader::VERSION = '0.050000';
 }
 BEGIN {
   $MaxMind::DB::Reader::Role::Reader::AUTHORITY = 'cpan:TJMATHER';
@@ -11,16 +11,21 @@ use warnings;
 use namespace::autoclean;
 use autodie;
 
-use Data::Validate::IP 0.16 qw( is_ipv4 is_ipv6 is_private_ipv4 is_private_ipv6 );
+use Data::Validate::IP 0.16
+    qw( is_ipv4 is_ipv6 is_private_ipv4 is_private_ipv6 );
+use Math::Int128 qw( uint128 );
 use Net::Works::Address 0.12;
 
 use Moo::Role;
 
-use constant DEBUG => $ENV{MAXMIND_DB_READER_DEBUG};
+requires qw(
+    _build_metadata
+    _data_for_address
+    _get_entry_data
+    _read_node
+);
 
-with 'MaxMind::DB::Role::Debugs',
-    'MaxMind::DB::Reader::Role::NodeReader',
-    'MaxMind::DB::Reader::Role::HasDecoder';
+use constant DEBUG => $ENV{MAXMIND_DB_READER_DEBUG};
 
 sub record_for_address {
     my $self = shift;
@@ -39,92 +44,66 @@ sub record_for_address {
     return $self->_data_for_address($addr);
 }
 
-sub _data_for_address {
-    my $self = shift;
-    my $addr = shift;
+sub iterate_search_tree {
+    my $self          = shift;
+    my $data_callback = shift;
+    my $node_callback = shift;
 
-    my $pointer = $self->_find_address_in_tree($addr);
+    my $node_num  = 0;
+    my $ipnum     = $self->ip_version() == 4 ? 0 : uint128(0);
+    my $depth     = 1;
+    my $max_depth = $self->ip_version() == 4 ? 32 : 128;
 
-    return undef unless $pointer;
-
-    return $self->_resolve_data_pointer($pointer);
-}
-
-sub _find_address_in_tree {
-    my $self = shift;
-    my $addr = shift;
-
-    my $address = Net::Works::Address->new_from_string(
-        string  => $addr,
-        version => $self->ip_version(),
+    $self->_iterate_search_tree(
+        $data_callback,
+        $node_callback,
+        $node_num,
+        $ipnum,
+        $depth,
+        $max_depth,
     );
-
-    my $integer = $address->as_integer();
-
-    if (DEBUG) {
-        $self->_debug_newline();
-        $self->_debug_string( 'IP address',      $address );
-        $self->_debug_string( 'IP address bits', $address->as_bit_string() );
-        $self->_debug_newline();
-    }
-
-    # The first node of the tree is always node 0, at the beginning of the
-    # value
-    my $node_num = 0;
-
-    for my $bit_num ( reverse( 0 ... $address->bits - 1 ) ) {
-        my $bit = 1 & ( $integer >> $bit_num );
-
-        my ( $left, $right ) = $self->_read_node($node_num);
-
-        my $record = $bit ? $right : $left;
-
-        if (DEBUG) {
-            $self->_debug_string( 'Bit #',     $address->bits() - $bit_num );
-            $self->_debug_string( 'Bit value', $bit );
-            $self->_debug_string( 'Record',    $bit ? 'right' : 'left' );
-            $self->_debug_string( 'Record value', $record );
-        }
-
-        if ( $record == $self->node_count() ) {
-            $self->_debug_message('Record is empty')
-                if DEBUG;
-            return;
-        }
-
-        if ( $record >= $self->node_count() ) {
-            $self->_debug_message('Record is a data pointer')
-                if DEBUG;
-            return $record;
-        }
-
-        $self->_debug_message('Record is a node number')
-            if DEBUG;
-
-        $node_num = $record;
-    }
 }
 
-sub _resolve_data_pointer {
-    my $self    = shift;
-    my $pointer = shift;
+sub _iterate_search_tree {
+    my $self          = shift;
+    my $data_callback = shift;
+    my $node_callback = shift;
+    my $node_num      = shift;
+    my $ipnum         = shift;
+    my $depth         = shift;
+    my $max_depth     = shift;
 
-    my $resolved
-        = ( $pointer - $self->node_count() ) + $self->_search_tree_size();
+    no warnings 'recursion';
 
-    if (DEBUG) {
-        my $node_count = $self->node_count();
-        my $tree_size  = $self->_search_tree_size();
+    my ( $left, $right ) = $self->_read_node($node_num);
+    $node_callback->( $node_num, $left, $right ) if $node_callback;
 
-        $self->_debug_string(
-            'Resolved data pointer',
-            "( $pointer - $node_count ) + $tree_size = $resolved"
-        );
+    for my $value ( $left, $right ) {
+
+        # We ignore empty branches of the search tree
+        next if $value == $self->node_count();
+
+        my $one = $self->ip_version() == 4 ? 1 : uint128(1);
+
+        $ipnum |= ( $one << ( $max_depth - $depth ) ) if $value == $right;
+
+        if ( $value <= $self->node_count() ) {
+            $self->_iterate_search_tree(
+                $data_callback,
+                $node_callback,
+                $value,
+                $ipnum,
+                $depth + 1,
+                $max_depth,
+            );
+        }
+        elsif ($data_callback) {
+            $data_callback->(
+                $ipnum, $depth,
+                $self->_get_entry_data($value)
+            );
+        }
     }
-
-    # We only want the data from the decoder, not the offset where it was
-    # found.
-    return scalar $self->_decoder()->decode($resolved);
 }
 
 around _build_metadata => sub {

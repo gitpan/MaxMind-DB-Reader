@@ -1,11 +1,11 @@
 {
    "abstract" : "Read MaxMind DB files",
    "author" : [
-      "Dave Rolsky <autarch@urth.org>",
-      "Olaf Alders <olaf@wundercounter.com>"
+      "Dave Rolsky <drolsky@maxmind.com>",
+      "Olaf Alders <oalders@maxmind.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300035, CPAN::Meta::Converter version 2.131560",
+   "generated_by" : "Dist::Zilla version 4.300039, CPAN::Meta::Converter version 2.131560",
    "license" : [
       "artistic_2"
    ],
@@ -36,6 +36,8 @@
             "Encode" : "0",
             "Getopt::Long" : "0",
             "IO::File" : "0",
+            "IO::Handle" : "0",
+            "JSON::PP" : "0",
             "List::AllUtils" : "0",
             "Math::Int128" : "0",
             "MaxMind::DB::Common" : "0.031000",
@@ -43,10 +45,12 @@
             "MaxMind::DB::Role::Debugs" : "0",
             "MaxMind::DB::Types" : "0",
             "Module::Implementation" : "0",
-            "Moo" : "0",
+            "Moo" : "1.003000",
             "Moo::Role" : "0",
             "MooX::StrictConstructor" : "0",
             "Net::Works::Address" : "0.12",
+            "Net::Works::Network" : "0",
+            "Role::Tiny" : "1.003002",
             "Try::Tiny" : "0",
             "autodie" : "0",
             "bytes" : "0",
@@ -60,15 +64,14 @@
       "test" : {
          "requires" : {
             "Exporter" : "0",
-            "File::Temp" : "0",
-            "Net::Works::Network" : "0",
             "Scalar::Util" : "0",
             "Test::Bits" : "0",
             "Test::Fatal" : "0",
             "Test::MaxMind::DB::Common::Data" : "0",
             "Test::MaxMind::DB::Common::Util" : "0",
             "Test::More" : "0",
-            "lib" : "0"
+            "lib" : "0",
+            "utf8" : "0"
          }
       }
    },
@@ -83,7 +86,7 @@
          "web" : "https://github.com/maxmind/MaxMind-DB-Reader-perl"
       }
    },
-   "version" : "0.040003",
+   "version" : "0.050000",
    "x_authority" : "cpan:TJMATHER"
 }
 

@@ -1,6 +1,6 @@
 package MaxMind::DB::Reader::Role::Sysreader;
 {
-  $MaxMind::DB::Reader::Role::Sysreader::VERSION = '0.040003';
+  $MaxMind::DB::Reader::Role::Sysreader::VERSION = '0.050000';
 }
 BEGIN {
   $MaxMind::DB::Reader::Role::Sysreader::AUTHORITY = 'cpan:TJMATHER';

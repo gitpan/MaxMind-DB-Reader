@@ -9,7 +9,6 @@ use lib 't/lib';
 use Test::MaxMind::DB::Common::Util qw( standard_test_metadata );
 use Test::MaxMind::DB::Reader;
 
-use File::Temp qw( tempdir );
 use Net::Works::Network;
 
 use MaxMind::DB::Reader;
@@ -49,6 +48,78 @@ for my $record_size ( 24, 28, 32 ) {
             "exception when a private IP address ($private) is passed to record_for_address()"
         );
     }
+}
+
+{
+    my $reader = MaxMind::DB::Reader->new(
+        file => 'maxmind-db/test-data/MaxMind-DB-test-mixed-24.mmdb' );
+
+    my %nodes;
+    my $node_cb = sub {
+        $nodes{ $_[0] } = [ $_[1], $_[2] ];
+    };
+
+    my @networks;
+    my $data_cb = sub {
+        my $ipnum = shift;
+        my $depth = shift;
+
+        push @networks,
+            Net::Works::Network->new_from_integer(
+            integer     => $ipnum,
+            mask_length => $depth,
+            ip_version  => 6,
+            )->as_string();
+    };
+
+    $reader->iterate_search_tree($data_cb, $node_cb);
+
+    my %node_tests = (
+        0   => [ 1,   225 ],
+        80  => [ 81,  197 ],
+        96  => [ 97,  225 ],
+        103 => [ 225, 104 ],
+        224 => [ 96,  225 ],
+    );
+
+    for my $node ( sort keys %node_tests ) {
+        is_deeply(
+            $nodes{$node},
+            $node_tests{$node},
+            "values seen for node $node match expected values"
+        );
+    }
+
+    my @expect_data = (
+        '::1.1.1.1/128',
+        '::1.1.1.2/127',
+        '::1.1.1.4/126',
+        '::1.1.1.8/125',
+        '::1.1.1.16/124',
+        '::1.1.1.63/128',
+        '::1:ffff:ffff/128',
+        '::3:ffff:ffc0/122',
+        '::3:ffff:fff0/124',
+        '::3:ffff:fff8/125',
+        '::3:ffff:fffe/127',
+        '::ffff:255.255.255.255/128',
+        '::ffff:255.255.255.254/127',
+        '::ffff:255.255.255.252/126',
+        '::ffff:255.255.255.248/125',
+        '::ffff:255.255.255.240/124',
+        '::ffff:255.255.255.255/128',
+        '2002:101:101::/48',
+        '2002:101:102::/47',
+        '2002:101:104::/46',
+        '2002:101:108::/45',
+        '2002:101:110::/44',
+        '2002:101:13f::/48',
+    );
+    is_deeply(
+        \@networks,
+        \@expect_data,
+        '$reader->iterate_search_tree() finds all the networks in the database'
+    );
 }
 
 done_testing();
@@ -97,6 +168,7 @@ sub _test_ipv4_lookups {
         [ '1.1.1.15' => '1.1.1.8' ],
         [ '1.1.1.17' => '1.1.1.16' ],
         [ '1.1.1.31' => '1.1.1.16' ],
+        [ '1.1.1.32' => '1.1.1.32' ],
         ) {
 
         my ( $ip, $expect ) = @{$pair};
