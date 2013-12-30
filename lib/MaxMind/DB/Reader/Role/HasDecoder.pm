@@ -1,6 +1,6 @@
 package MaxMind::DB::Reader::Role::HasDecoder;
 {
-  $MaxMind::DB::Reader::Role::HasDecoder::VERSION = '0.050001';
+  $MaxMind::DB::Reader::Role::HasDecoder::VERSION = '0.050002';
 }
 BEGIN {
   $MaxMind::DB::Reader::Role::HasDecoder::AUTHORITY = 'cpan:TJMATHER';

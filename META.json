@@ -89,7 +89,7 @@
          "web" : "https://github.com/maxmind/MaxMind-DB-Reader-perl"
       }
    },
-   "version" : "0.050001",
+   "version" : "0.050002",
    "x_authority" : "cpan:TJMATHER"
 }
 

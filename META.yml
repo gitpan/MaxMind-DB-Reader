@@ -58,5 +58,5 @@ requires:
 resources:
   bugtracker: https://github.com/maxmind/MaxMind-DB-Reader-perl/issues
   repository: git://github.com/maxmind/MaxMind-DB-Reader-perl.git
-version: 0.050001
+version: 0.050002
 x_authority: cpan:TJMATHER

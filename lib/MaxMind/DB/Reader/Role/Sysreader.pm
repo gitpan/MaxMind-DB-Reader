@@ -1,6 +1,6 @@
 package MaxMind::DB::Reader::Role::Sysreader;
 {
-  $MaxMind::DB::Reader::Role::Sysreader::VERSION = '0.050001';
+  $MaxMind::DB::Reader::Role::Sysreader::VERSION = '0.050002';
 }
 BEGIN {
   $MaxMind::DB::Reader::Role::Sysreader::AUTHORITY = 'cpan:TJMATHER';
@@ -12,7 +12,7 @@ use namespace::autoclean;
 use autodie;
 
 use Carp qw( confess );
-use MaxMind::DB::Types qw( FileHandle );
+use MaxMind::DB::Types qw( FileHandle Int );
 
 use Moo::Role;
 
@@ -21,6 +21,13 @@ has data_source => (
     isa     => FileHandle,
     lazy    => 1,
     builder => '_build_data_source',
+);
+
+has _data_source_size => (
+    is      => 'ro',
+    isa     => Int,
+    lazy    => 1,
+    builder => '_build_data_source_size',
 );
 
 sub _read {
@@ -63,7 +70,15 @@ sub _read {
 sub _build_data_source {
     my $class = ref shift;
 
-    die "You must provide a data_source parameter to the constructor for $class";
+    die
+        "You must provide a data_source parameter to the constructor for $class";
+}
+
+sub _build_data_source_size {
+    my $self = shift;
+
+    my @stat = stat( $self->data_source ) or die $!;
+    return $stat[7];
 }
 
 1;
