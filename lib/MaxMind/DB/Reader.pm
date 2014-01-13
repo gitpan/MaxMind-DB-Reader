@@ -1,6 +1,6 @@
 package MaxMind::DB::Reader;
 {
-  $MaxMind::DB::Reader::VERSION = '0.050002';
+  $MaxMind::DB::Reader::VERSION = '0.050003';
 }
 BEGIN {
   $MaxMind::DB::Reader::AUTHORITY = 'cpan:TJMATHER';
@@ -44,7 +44,7 @@ MaxMind::DB::Reader - Read MaxMind DB files
 
 =head1 VERSION
 
-version 0.050002
+version 0.050003
 
 =head1 DESCRIPTION
 
@@ -69,7 +69,7 @@ Olaf Alders <oalders@maxmind.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2013 by MaxMind, Inc..
+This software is Copyright (c) 2014 by MaxMind, Inc..
 
 This is free software, licensed under:
 

@@ -1,6 +1,6 @@
 package MaxMind::DB::Reader::Role::HasMetadata;
 {
-  $MaxMind::DB::Reader::Role::HasMetadata::VERSION = '0.050002';
+  $MaxMind::DB::Reader::Role::HasMetadata::VERSION = '0.050003';
 }
 BEGIN {
   $MaxMind::DB::Reader::Role::HasMetadata::AUTHORITY = 'cpan:TJMATHER';
@@ -62,7 +62,8 @@ sub _build_metadata {
     my $last_block = q{};
     $self->_read( \$last_block, -$last_bytes, $last_bytes, 'seek from end' );
 
-    my $start = rindex( $last_block, $MetadataStartMarker );
+    my $start = ( $size - $last_bytes )
+        + rindex( $last_block, $MetadataStartMarker );
 
     confess 'Error opening database file "'
         . $self->file . '": '

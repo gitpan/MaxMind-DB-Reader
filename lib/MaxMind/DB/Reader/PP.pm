@@ -1,6 +1,6 @@
 package MaxMind::DB::Reader::PP;
 {
-  $MaxMind::DB::Reader::PP::VERSION = '0.050002';
+  $MaxMind::DB::Reader::PP::VERSION = '0.050003';
 }
 BEGIN {
   $MaxMind::DB::Reader::PP::AUTHORITY = 'cpan:TJMATHER';
@@ -183,7 +183,7 @@ MaxMind::DB::Reader::PP - Pure Perl implementation of the MaxMind DB reader code
 
 =head1 VERSION
 
-version 0.050002
+version 0.050003
 
 =head1 AUTHORS
 
@@ -201,7 +201,7 @@ Olaf Alders <oalders@maxmind.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2013 by MaxMind, Inc..
+This software is Copyright (c) 2014 by MaxMind, Inc..
 
 This is free software, licensed under:
 
