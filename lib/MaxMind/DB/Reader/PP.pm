@@ -1,11 +1,5 @@
 package MaxMind::DB::Reader::PP;
-{
-  $MaxMind::DB::Reader::PP::VERSION = '0.050003';
-}
-BEGIN {
-  $MaxMind::DB::Reader::PP::AUTHORITY = 'cpan:TJMATHER';
-}
-
+$MaxMind::DB::Reader::PP::VERSION = '0.050004';
 use strict;
 use warnings;
 use namespace::autoclean;
@@ -170,41 +164,3 @@ sub _build_ipv4_start_node {
 __PACKAGE__->meta()->make_immutable();
 
 1;
-
-# ABSTRACT: Pure Perl implementation of the MaxMind DB reader code
-
-__END__
-
-=pod
-
-=head1 NAME
-
-MaxMind::DB::Reader::PP - Pure Perl implementation of the MaxMind DB reader code
-
-=head1 VERSION
-
-version 0.050003
-
-=head1 AUTHORS
-
-=over 4
-
-=item *
-
-Dave Rolsky <drolsky@maxmind.com>
-
-=item *
-
-Olaf Alders <oalders@maxmind.com>
-
-=back
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is Copyright (c) 2014 by MaxMind, Inc..
-
-This is free software, licensed under:
-
-  The Artistic License 2.0 (GPL Compatible)
-
-=cut

@@ -1,11 +1,5 @@
 package MaxMind::DB::Reader::Data::EndMarker;
-{
-  $MaxMind::DB::Reader::Data::EndMarker::VERSION = '0.050003';
-}
-BEGIN {
-  $MaxMind::DB::Reader::Data::EndMarker::AUTHORITY = 'cpan:TJMATHER';
-}
-
+$MaxMind::DB::Reader::Data::EndMarker::VERSION = '0.050004';
 use strict;
 use warnings;
 

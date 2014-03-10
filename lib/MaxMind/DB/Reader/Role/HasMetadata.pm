@@ -1,11 +1,5 @@
 package MaxMind::DB::Reader::Role::HasMetadata;
-{
-  $MaxMind::DB::Reader::Role::HasMetadata::VERSION = '0.050003';
-}
-BEGIN {
-  $MaxMind::DB::Reader::Role::HasMetadata::AUTHORITY = 'cpan:TJMATHER';
-}
-
+$MaxMind::DB::Reader::Role::HasMetadata::VERSION = '0.050004';
 use strict;
 use warnings;
 use namespace::autoclean;

@@ -1,11 +1,5 @@
 package MaxMind::DB::Verifier;
-{
-  $MaxMind::DB::Verifier::VERSION = '0.050003';
-}
-BEGIN {
-  $MaxMind::DB::Verifier::AUTHORITY = 'cpan:TJMATHER';
-}
-
+$MaxMind::DB::Verifier::VERSION = '0.050004';
 use strict;
 use warnings;
 use namespace::autoclean;

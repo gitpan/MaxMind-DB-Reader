@@ -1,11 +1,11 @@
 {
-   "abstract" : "Read MaxMind DB files",
+   "abstract" : "Read MaxMind DB files and look up IP addresses",
    "author" : [
       "Dave Rolsky <drolsky@maxmind.com>",
       "Olaf Alders <oalders@maxmind.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 5.006, CPAN::Meta::Converter version 2.131560",
+   "generated_by" : "Dist::Zilla version 5.013, CPAN::Meta::Converter version 2.131560",
    "license" : [
       "artistic_2"
    ],
@@ -89,7 +89,12 @@
          "web" : "https://github.com/maxmind/MaxMind-DB-Reader-perl"
       }
    },
-   "version" : "0.050003",
-   "x_authority" : "cpan:TJMATHER"
+   "version" : "0.050004",
+   "x_authority" : "cpan:TJMATHER",
+   "x_contributors" : [
+      "Greg Oschwald <goschwald@maxmind.com>",
+      "Ran Eilam <reilam@maxmind.com>",
+      "William Stevenson <skyblue@skybluecircles.com>"
+   ]
 }
 

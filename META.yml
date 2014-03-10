@@ -1,5 +1,5 @@
 ---
-abstract: 'Read MaxMind DB files'
+abstract: 'Read MaxMind DB files and look up IP addresses'
 author:
   - 'Dave Rolsky <drolsky@maxmind.com>'
   - 'Olaf Alders <oalders@maxmind.com>'
@@ -17,7 +17,7 @@ build_requires:
 configure_requires:
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 5.006, CPAN::Meta::Converter version 2.131560'
+generated_by: 'Dist::Zilla version 5.013, CPAN::Meta::Converter version 2.131560'
 license: artistic_2
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -58,5 +58,9 @@ requires:
 resources:
   bugtracker: https://github.com/maxmind/MaxMind-DB-Reader-perl/issues
   repository: git://github.com/maxmind/MaxMind-DB-Reader-perl.git
-version: 0.050003
+version: 0.050004
 x_authority: cpan:TJMATHER
+x_contributors:
+  - 'Greg Oschwald <goschwald@maxmind.com>'
+  - 'Ran Eilam <reilam@maxmind.com>'
+  - 'William Stevenson <skyblue@skybluecircles.com>'

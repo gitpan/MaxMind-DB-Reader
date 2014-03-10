@@ -1,11 +1,5 @@
 package MaxMind::DB::Reader::Role::Sysreader;
-{
-  $MaxMind::DB::Reader::Role::Sysreader::VERSION = '0.050003';
-}
-BEGIN {
-  $MaxMind::DB::Reader::Role::Sysreader::AUTHORITY = 'cpan:TJMATHER';
-}
-
+$MaxMind::DB::Reader::Role::Sysreader::VERSION = '0.050004';
 use strict;
 use warnings;
 use namespace::autoclean;
