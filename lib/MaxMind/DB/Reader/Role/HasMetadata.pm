@@ -1,5 +1,5 @@
 package MaxMind::DB::Reader::Role::HasMetadata;
-$MaxMind::DB::Reader::Role::HasMetadata::VERSION = '0.050004';
+$MaxMind::DB::Reader::Role::HasMetadata::VERSION = '0.050005';
 use strict;
 use warnings;
 use namespace::autoclean;

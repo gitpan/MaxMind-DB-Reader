@@ -89,7 +89,7 @@
          "web" : "https://github.com/maxmind/MaxMind-DB-Reader-perl"
       }
    },
-   "version" : "0.050004",
+   "version" : "0.050005",
    "x_authority" : "cpan:TJMATHER",
    "x_contributors" : [
       "Greg Oschwald <goschwald@maxmind.com>",

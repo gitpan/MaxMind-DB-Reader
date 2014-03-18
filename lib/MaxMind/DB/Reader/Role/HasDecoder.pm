@@ -1,5 +1,5 @@
 package MaxMind::DB::Reader::Role::HasDecoder;
-$MaxMind::DB::Reader::Role::HasDecoder::VERSION = '0.050004';
+$MaxMind::DB::Reader::Role::HasDecoder::VERSION = '0.050005';
 use strict;
 use warnings;
 use namespace::autoclean;

@@ -1,5 +1,5 @@
 package MaxMind::DB::Reader::Role::NodeReader;
-$MaxMind::DB::Reader::Role::NodeReader::VERSION = '0.050004';
+$MaxMind::DB::Reader::Role::NodeReader::VERSION = '0.050005';
 use strict;
 use warnings;
 use namespace::autoclean;
