@@ -1,5 +1,5 @@
 package MaxMind::DB::Reader::Data::Container;
-$MaxMind::DB::Reader::Data::Container::VERSION = '0.060000';
+$MaxMind::DB::Reader::Data::Container::VERSION = '0.060001';
 use strict;
 use warnings;
 
