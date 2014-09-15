@@ -5,7 +5,7 @@
       "Olaf Alders <oalders@maxmind.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 5.013, CPAN::Meta::Converter version 2.131560",
+   "generated_by" : "Dist::Zilla version 5.020, CPAN::Meta::Converter version 2.142060",
    "license" : [
       "artistic_2"
    ],
@@ -17,7 +17,7 @@
    "prereqs" : {
       "configure" : {
          "requires" : {
-            "ExtUtils::MakeMaker" : "6.30"
+            "ExtUtils::MakeMaker" : "0"
          }
       },
       "develop" : {
@@ -25,7 +25,8 @@
             "Test::CPAN::Changes" : "0.19",
             "Test::More" : "0",
             "Test::NoTabs" : "0",
-            "Test::Pod" : "1.41"
+            "Test::Pod" : "1.41",
+            "Test::Spelling" : "0.12"
          }
       },
       "runtime" : {
@@ -66,6 +67,7 @@
       "test" : {
          "requires" : {
             "Exporter" : "0",
+            "Path::Class" : "0",
             "Scalar::Util" : "0",
             "Test::Bits" : "0",
             "Test::Fatal" : "0",
@@ -89,8 +91,8 @@
          "web" : "https://github.com/maxmind/MaxMind-DB-Reader-perl"
       }
    },
-   "version" : "0.050005",
-   "x_authority" : "cpan:TJMATHER",
+   "version" : "0.060000",
+   "x_authority" : "cpan:MAXMIND",
    "x_contributors" : [
       "Greg Oschwald <goschwald@maxmind.com>",
       "Ran Eilam <reilam@maxmind.com>",

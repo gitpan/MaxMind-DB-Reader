@@ -2,16 +2,14 @@ use strict;
 use warnings;
 use autodie;
 
-use Test::Fatal;
-use Test::More;
-
 use lib 't/lib';
+use MaxMind::DB::Reader;
+use Net::Works::Network;
+use Path::Class qw( file );
+use Test::Fatal;
 use Test::MaxMind::DB::Common::Util qw( standard_test_metadata );
 use Test::MaxMind::DB::Reader;
-
-use Net::Works::Network;
-
-use MaxMind::DB::Reader;
+use Test::More;
 
 for my $record_size ( 24, 28, 32 ) {
     for my $file_type (qw( ipv4 mixed )) {
@@ -43,10 +41,10 @@ for my $record_size ( 24, 28, 32 ) {
 
     for my $private (
         qw( 10.44.51.212 10.0.0.3 172.16.99.44 fc00::24 fc00:1234:4bdf::1 )) {
-        like(
-            exception { $reader->record_for_address($private) },
-            qr/\QThe IP address you provided ($private) is not a public IP address\E/,
-            "exception when a private IP address ($private) is passed to record_for_address()"
+        is(
+            $reader->record_for_address($private),
+            undef,
+            "undef when a private IP address ($private) is passed to record_for_address()"
         );
     }
 }
@@ -76,11 +74,11 @@ for my $record_size ( 24, 28, 32 ) {
     $reader->iterate_search_tree( $data_cb, $node_cb );
 
     my %node_tests = (
-        0   => [ 1,   225 ],
+        0   => [ 1,   242 ],
         80  => [ 81,  197 ],
-        96  => [ 97,  225 ],
-        103 => [ 225, 104 ],
-        224 => [ 96,  225 ],
+        96  => [ 97,  242 ],
+        103 => [ 242, 104 ],
+        241 => [ 96,  242 ],
     );
 
     for my $node ( sort keys %node_tests ) {
@@ -109,6 +107,12 @@ for my $record_size ( 24, 28, 32 ) {
         '::ffff:1.1.1.8/125',
         '::ffff:1.1.1.16/124',
         '::ffff:1.1.1.32/128',
+        '2001:0:101:101::/64',
+        '2001:0:101:102::/63',
+        '2001:0:101:104::/62',
+        '2001:0:101:108::/61',
+        '2001:0:101:110::/60',
+        '2001:0:101:120::/64',
         '2002:101:101::/48',
         '2002:101:102::/47',
         '2002:101:104::/46',
@@ -120,6 +124,19 @@ for my $record_size ( 24, 28, 32 ) {
         \@networks,
         \@expect_data,
         '$reader->iterate_search_tree() finds all the networks in the database'
+    );
+}
+
+{
+    is(
+        exception {
+            MaxMind::DB::Reader->new(
+                file => file(
+                    'maxmind-db/test-data/MaxMind-DB-test-mixed-24.mmdb')
+                )
+        },
+        undef,
+        'Using a file object does not cause a type error'
     );
 }
 

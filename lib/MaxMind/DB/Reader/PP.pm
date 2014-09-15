@@ -1,11 +1,12 @@
 package MaxMind::DB::Reader::PP;
-$MaxMind::DB::Reader::PP::VERSION = '0.050005';
+$MaxMind::DB::Reader::PP::VERSION = '0.060000';
 use strict;
 use warnings;
 use namespace::autoclean;
 
 use Carp qw( confess );
-use MaxMind::DB::Types qw( Str Int );
+use MaxMind::DB::Types qw( Int );
+use Net::Works::Address 0.12;
 
 use Moo;
 use MooX::StrictConstructor;
@@ -14,12 +15,6 @@ with 'MaxMind::DB::Reader::Role::Reader',
     'MaxMind::DB::Reader::Role::NodeReader',
     'MaxMind::DB::Reader::Role::HasDecoder',
     'MaxMind::DB::Role::Debugs';
-
-has file => (
-    is       => 'ro',
-    isa      => Str,
-    required => 1,
-);
 
 has _ipv4_start_node => (
     is       => 'ro',
@@ -128,8 +123,8 @@ sub _get_entry_data {
     my $resolved
         = ( $offset - $self->node_count() ) + $self->_search_tree_size();
 
-            confess q{The MaxMind DB file's search tree is corrupt}
-    if $resolved > $self->_data_source_size;
+    confess q{The MaxMind DB file's search tree is corrupt}
+        if $resolved > $self->_data_source_size;
 
     if (DEBUG) {
         my $node_count = $self->node_count();

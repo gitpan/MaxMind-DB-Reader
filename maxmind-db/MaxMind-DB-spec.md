@@ -142,8 +142,9 @@ The pointers can point to one of three things. First, it may point to another
 node in the search tree address space. These pointers are followed as part of
 the IP address search algorithm, described below.
 
-The pointer can also point to 0. If this is the case, it means that the IP
-address we are searching for is not in the database.
+The pointer can point to a value equal to `$number_of_nodes`. If this is the
+case, it means that the IP address we are searching for is not in the
+database.
 
 Finally, it may point to an address in the data section. This is the data
 relevant to the given netblock.
@@ -206,31 +207,33 @@ the start of the file.
 In order to determine where in the data section we should start looking, we use
 the following formula:
 
-    $data_section_offset = ( $record_value - $node_count )
-                           - 16 (data section separator size)
+    $data_section_offset = ( $record_value - $node_count ) - 16
+
+The `16` is the size of the data section separator (see below for details).
 
 The reason that we subtract the `$node_count` is best demonstrated by an example.
 
 Let's assume we have a 24-bit tree with 1,000 nodes. Each node contains 48
-bits, or 6 bytes. The size of the tree in bytes is 6,000.
+bits, or 6 bytes. The size of the tree is 6,000 bytes.
 
-When a record in the tree contains a number that is <= 1,000, this is a *node
-number*, and we look up that node. If a record contains a value >= 1,017, we
+When a record in the tree contains a number that is < 1,000, this is a *node
+number*, and we look up that node. If a record contains a value >= 1,016, we
 know that it is a data section value. We subtract the node count (1,000) and
-then subtract 16 for the data section separator, giving us the number 1.
+then subtract 16 for the data section separator, giving us the number 0, the
+first byte of the data section.
 
-If a record contained the value 6,000, the formula would give us an offset of
-5,000.
+If a record contained the value 6,000, this formula would give us an offset of
+4,084 into the data section.
 
 In order to determine where in the file this offset really points to, we also
 need to know where the data section starts. This can be calculated by
 determining the size of the search tree in bytes and then adding an additional
-16 bytes for the data section separator (see below).
+16 bytes for the data section separator.
 
 So the final formula to determine the offset in the file is:
 
-   $offset_in_file = ( $record_value - $node_count )
-                     + $search_tree_size_in_bytes
+    $offset_in_file = ( $record_value - $node_count )
+                      + $search_tree_size_in_bytes + 16
 
 ### IPv4 addresses in an IPv6 tree
 
@@ -241,7 +244,7 @@ Creators of databases should decide on a strategy for handling the various
 mappings between IPv4 and IPv6.
 
 The strategy that MaxMind uses for its GeoIP databases is to include a pointer
-from the `::ffff:0:0/80` subnet to the root node of the IPv4 address space in
+from the `::ffff:0:0/96` subnet to the root node of the IPv4 address space in
 the tree. This accounts for the
 [IPv4-mapped IPv6 address](http://en.wikipedia.org/wiki/IPv6#IPv4-mapped_IPv6_addresses).
 
@@ -263,7 +266,7 @@ section. This separator exists in order to make it possible for a verification
 tool to distinguish between the two sections.
 
 This separator is not considered part of the data section itself. In other
-words, the data section starts at `$size_of_search_tree + 16" bytes in the
+words, the data section starts at `$size\_of\_search_tree + 16" bytes in the
 file.
 
 ## Output Data Section
@@ -415,7 +418,7 @@ tell us the type:
     001XXXXX          pointer
     010XXXXX          UTF-8 string
     010XXXXX          unsigned 32-bit int (ASCII)
-    000XXXXX 00001010 unsigned 128-bit int (binary)
+    000XXXXX 00000011 unsigned 128-bit int (binary)
     000XXXXX 00000100 array
     000XXXXX 00000110 end marker
 
@@ -431,7 +434,7 @@ bytes. For example:
     01000010          UTF-8 string - 2 bytes long
     01011100          UTF-8 string - 28 bytes long
     11000001          unsigned 32-bit int - 1 byte long
-    00000011 00001010 unsigned 128-bit int - 3 bytes long
+    00000011 00000011 unsigned 128-bit int - 3 bytes long
 
 If the five bits are equal to 29, 30, or 31, then use the following algorithm
 to calculate the payload size.
@@ -447,11 +450,11 @@ type specifying bytes as a single unsigned integer*.
 
 Some examples:
 
-    01011101 00110011 UTF-8 string - 70 bytes long
+    01011101 00110011 UTF-8 string - 80 bytes long
 
 In this case, the last five bits of the control byte equal 29. We treat the
 next byte as an unsigned integer. The next byte is 51, so the total size is
-(29 + 51) = 70.
+(29 + 51) = 80.
 
     01011110 00110011 00110011 UTF-8 string - 13,392 bytes long
 
@@ -516,6 +519,14 @@ are ignored.
 
 This means that we are limited to 4GB of address space for pointers, so the
 data section size for the database is limited to 4GB.
+
+## Authors
+
+This specification was created by the following authors:
+
+* Greg Oschwald \<goschwald@maxmind.com\>
+* Dave Rolsky \<drolsky@maxmind.com\>
+* Boris Zentner \<bzentner@maxmind.com\>
 
 ## License
 
