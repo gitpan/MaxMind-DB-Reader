@@ -17,9 +17,9 @@ my %WriteMakefileArgs = (
   },
   "DISTNAME" => "MaxMind-DB-Reader",
   "EXE_FILES" => [
-    "bin/mmdb-dump-search-tree",
-    "bin/mmdb-dump-metadata",
     "bin/mmdb-dump-database",
+    "bin/mmdb-dump-metadata",
+    "bin/mmdb-dump-search-tree",
     "bin/mmdb-verify-database"
   ],
   "LICENSE" => "artistic_2",
@@ -69,7 +69,7 @@ my %WriteMakefileArgs = (
     "lib" => 0,
     "utf8" => 0
   },
-  "VERSION" => "0.060001",
+  "VERSION" => "1.000000",
   "test" => {
     "TESTS" => "t/*.t t/MaxMind/DB/*.t t/MaxMind/DB/Reader/*.t t/MaxMind/DB/Reader/Decoder-types/*.t"
   }

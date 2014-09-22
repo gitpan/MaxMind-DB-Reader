@@ -78,10 +78,10 @@ t/MaxMind/DB/Reader/Decoder-types/uint32.t
 t/MaxMind/DB/Reader/Decoder-types/uint64.t
 t/MaxMind/DB/Reader/Decoder-types/utf8_string.t
 t/MaxMind/DB/Reader/Decoder.t
-t/author-no-tabs.t
 t/author-pod-spell.t
 t/lib/Test/MaxMind/DB/Reader.pm
 t/lib/Test/MaxMind/DB/Reader/Decoder.pm
 t/release-cpan-changes.t
 t/release-eol.t
+t/release-no-tabs.t
 t/release-pod-syntax.t

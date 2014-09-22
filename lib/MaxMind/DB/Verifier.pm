@@ -1,5 +1,5 @@
 package MaxMind::DB::Verifier;
-$MaxMind::DB::Verifier::VERSION = '0.060001';
+$MaxMind::DB::Verifier::VERSION = '1.000000';
 use strict;
 use warnings;
 use namespace::autoclean;

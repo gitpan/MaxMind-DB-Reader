@@ -1,5 +1,5 @@
 package MaxMind::DB::Reader;
-$MaxMind::DB::Reader::VERSION = '0.060001';
+$MaxMind::DB::Reader::VERSION = '1.000000';
 use strict;
 use warnings;
 
@@ -40,7 +40,7 @@ MaxMind::DB::Reader - Read MaxMind DB files and look up IP addresses
 
 =head1 VERSION
 
-version 0.060001
+version 1.000000
 
 =head1 SYNOPSIS
 
