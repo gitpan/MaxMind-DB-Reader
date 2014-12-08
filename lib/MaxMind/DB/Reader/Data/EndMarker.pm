@@ -1,5 +1,5 @@
 package MaxMind::DB::Reader::Data::EndMarker;
-$MaxMind::DB::Reader::Data::EndMarker::VERSION = '1.000000';
+$MaxMind::DB::Reader::Data::EndMarker::VERSION = '1.000001';
 use strict;
 use warnings;
 

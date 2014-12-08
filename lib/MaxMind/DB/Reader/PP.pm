@@ -1,5 +1,5 @@
 package MaxMind::DB::Reader::PP;
-$MaxMind::DB::Reader::PP::VERSION = '1.000000';
+$MaxMind::DB::Reader::PP::VERSION = '1.000001';
 use strict;
 use warnings;
 use namespace::autoclean;
@@ -155,7 +155,5 @@ sub _build_ipv4_start_node {
 
     return $node_num;
 }
-
-__PACKAGE__->meta()->make_immutable();
 
 1;

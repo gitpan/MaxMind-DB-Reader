@@ -1,5 +1,5 @@
 package MaxMind::DB::Reader::Decoder;
-$MaxMind::DB::Reader::Decoder::VERSION = '1.000000';
+$MaxMind::DB::Reader::Decoder::VERSION = '1.000001';
 use strict;
 use warnings;
 use namespace::autoclean;
@@ -390,7 +390,5 @@ sub _zero_pad_left {
 
     return ( "\x00" x ( $desired_length - length($content) ) ) . $content;
 }
-
-__PACKAGE__->meta()->make_immutable();
 
 1;

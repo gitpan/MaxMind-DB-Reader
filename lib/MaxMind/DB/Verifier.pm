@@ -1,5 +1,5 @@
 package MaxMind::DB::Verifier;
-$MaxMind::DB::Verifier::VERSION = '1.000000';
+$MaxMind::DB::Verifier::VERSION = '1.000001';
 use strict;
 use warnings;
 use namespace::autoclean;
@@ -284,7 +284,5 @@ sub _build_max_pointer_in_search_tree {
     # data section.
     return $self->_data_section_end() - 1;
 }
-
-__PACKAGE__->meta()->make_immutable();
 
 1;
