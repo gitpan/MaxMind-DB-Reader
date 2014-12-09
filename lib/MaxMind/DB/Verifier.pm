@@ -1,5 +1,5 @@
 package MaxMind::DB::Verifier;
-$MaxMind::DB::Verifier::VERSION = '1.000001';
+$MaxMind::DB::Verifier::VERSION = '1.000002';
 use strict;
 use warnings;
 use namespace::autoclean;
@@ -77,7 +77,7 @@ sub verify {
     STDOUT->autoflush(1);
 
     for my $thing (qw( metadata search_tree data_section )) {
-        my $display_name = $thing =~ s/_/ /gr;
+        ( my $display_name = $thing ) =~ s/_/ /g;
 
         $self->_output("Verifying $display_name ...");
 

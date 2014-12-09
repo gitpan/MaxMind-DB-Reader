@@ -1,5 +1,5 @@
 package MaxMind::DB::Reader::PP;
-$MaxMind::DB::Reader::PP::VERSION = '1.000001';
+$MaxMind::DB::Reader::PP::VERSION = '1.000002';
 use strict;
 use warnings;
 use namespace::autoclean;

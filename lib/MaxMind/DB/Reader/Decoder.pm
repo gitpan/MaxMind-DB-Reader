@@ -1,5 +1,5 @@
 package MaxMind::DB::Reader::Decoder;
-$MaxMind::DB::Reader::Decoder::VERSION = '1.000001';
+$MaxMind::DB::Reader::Decoder::VERSION = '1.000002';
 use strict;
 use warnings;
 use namespace::autoclean;
