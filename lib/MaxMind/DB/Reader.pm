@@ -1,6 +1,6 @@
 package MaxMind::DB::Reader;
-# git description: v1.000001-4-gfc77787
-$MaxMind::DB::Reader::VERSION = '1.000002';
+# git description: v1.000002-2-g11114c0
+$MaxMind::DB::Reader::VERSION = '1.000003';
 
 use strict;
 use warnings;
@@ -40,7 +40,7 @@ MaxMind::DB::Reader - Read MaxMind DB files and look up IP addresses
 
 =head1 VERSION
 
-version 1.000002
+version 1.000003
 
 =head1 SYNOPSIS
 

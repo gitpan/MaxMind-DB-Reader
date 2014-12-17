@@ -1,5 +1,5 @@
 package MaxMind::DB::Reader::Role::Sysreader;
-$MaxMind::DB::Reader::Role::Sysreader::VERSION = '1.000002';
+$MaxMind::DB::Reader::Role::Sysreader::VERSION = '1.000003';
 use strict;
 use warnings;
 use namespace::autoclean;
